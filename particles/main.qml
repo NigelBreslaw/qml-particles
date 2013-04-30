@@ -177,11 +177,11 @@ Rectangle {
 
             SequentialAnimation {
 //                PauseAnimation { duration: 600 }
-                NumberAnimation { target: ageAffectorLoader.item; property: "height"; to: 1; duration: 500; }
+                NumberAnimation { target: ageAffectorLoader.item; property: "height"; to: 1; duration: 5000; easing.type: Easing.InOutSine }
                 ScriptAction { script: ageAffectorLoader.sourceComponent = undefined }
             }
             SequentialAnimation {
-                PauseAnimation { duration: 500 }
+                PauseAnimation { duration: 3000 }
 
                 ParallelAnimation {
 //                    NumberAnimation { targets: [logoParticle, logoSideParticle]; properties: "alpha"; to: 0; duration: 200 }
@@ -190,8 +190,8 @@ Rectangle {
                 }
             }
         }
-        PauseAnimation { duration: 2000 }
-        ColorAnimation { targets: [logoParticle, logoSideParticle, textSideParticle]; property: "color";  to: "#6fadac"; duration: 1000 }
+        PauseAnimation { duration: 4000 }
+        ColorAnimation { targets: [logoParticle, logoSideParticle, textSideParticle]; property: "color";  to: "#6fadac"; duration: 3000 }
     }
 
 
