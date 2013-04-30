@@ -50,6 +50,20 @@ Rectangle {
 
         ImageParticle {
             source: "images/star.png"
+            groups: ["logoText"]
+            z: 2
+            anchors.fill: parent
+            color: "white"
+            alpha: 0.5
+            alphaVariation: 0.4
+            colorVariation: 0.3
+            rotationVelocity: 50
+            rotationVelocityVariation: 100
+        }
+
+        ImageParticle {
+            id: textSideParticle
+            source: "images/star.png"
             groups: ["textSide"]
             z: 2
             anchors.fill: parent
@@ -61,25 +75,11 @@ Rectangle {
 
         }
 
-        ImageParticle {
-            source: "images/star.png"
-            groups: ["logoText"]
-            z: 2
-            anchors.fill: parent
-            color: "white"
-            alpha: 0.6
-            colorVariation: 0.2
-            rotationVelocity: 50
-            rotationVelocityVariation: 100
-        }
-
-
-
         Emitter {
             id: logoEmitter
             anchors.fill: parent
             group: "logo"
-            emitRate: 10
+            emitRate: targetLogoEmit
             lifeSpan: 750
             size: 10
             endSize: 2
@@ -96,7 +96,7 @@ Rectangle {
             width: 143
             height: 800
             group: "logoSide"
-            emitRate: 10
+            emitRate: targetLogoSideEmit
             lifeSpan: 700
             size: 25
             sizeVariation: 25
@@ -150,8 +150,10 @@ Rectangle {
             id: ageAffector
             Age {
                 system: ps
+                y: 800 - height
                 width: 665
                 height: 800
+//                lifeLeft: 60
                 enabled: true
             }
         }
@@ -173,16 +175,13 @@ Rectangle {
         running: true
         ParallelAnimation {
 
-            NumberAnimation { target: logoEmitter; property: "emitRate"; to: targetLogoEmit; duration: 5000; easing.type: Easing.InSine }
             SequentialAnimation {
-                NumberAnimation { target: ageAffectorLoader.item; property: "height"; to: 10; duration: 4000; easing.type: Easing.InSine }
+//                PauseAnimation { duration: 600 }
+                NumberAnimation { target: ageAffectorLoader.item; property: "height"; to: 1; duration: 500; }
                 ScriptAction { script: ageAffectorLoader.sourceComponent = undefined }
             }
-
-
-            NumberAnimation { target: logoSideEmitter; property: "emitRate"; to: targetLogoSideEmit; duration: 5000; easing.type: Easing.InSine }
             SequentialAnimation {
-                PauseAnimation { duration: 3000 }
+                PauseAnimation { duration: 500 }
 
                 ParallelAnimation {
 //                    NumberAnimation { targets: [logoParticle, logoSideParticle]; properties: "alpha"; to: 0; duration: 200 }
@@ -191,6 +190,8 @@ Rectangle {
                 }
             }
         }
+        PauseAnimation { duration: 2000 }
+        ColorAnimation { targets: [logoParticle, logoSideParticle, textSideParticle]; property: "color";  to: "#6fadac"; duration: 1000 }
     }
 
 
